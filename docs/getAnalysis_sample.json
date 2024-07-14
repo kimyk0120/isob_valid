@@ -1,0 +1,60 @@
+{
+    "result": {
+        "result_code": 200,
+        "result_message": "성공",
+        "result_description": "성공"
+    },
+    "body": {
+        "detail_list": [
+            {
+                "id": 1,
+                "member_id": 19,
+                "turtleneck_angle": 129.635,
+                "shoulder_left_angle": 139.738,
+                "shoulder_right_angle": 139.738,
+                "pelvis_left_angle": 156.423,
+                "pelvis_right_angle": 156.423,
+                "ox_left_leg_angle": 168.418,
+                "ox_right_leg_angle": 178.17,
+                "report_file_path": null,
+                "key_points": null,
+                "analysis_at": "2024-04-17T15:34:14",
+                "anal_score_list": [
+                    {
+                        "name": "turtleNeck",
+                        "score": 74.07714,
+                        "grade": -3
+                    },
+                    {
+                        "name": "shoulderBalance",
+                        "score": 0.0,
+                        "grade": -3
+                    },
+                    {
+                        "name": "pelvisBalance",
+                        "score": 0.0,
+                        "grade": -3
+                    },
+                    {
+                        "name": "oxLeg",
+                        "score_left": 93.582,
+                        "score_right": 83.83,
+                        "grade_left": 0,
+                        "grade_right": 1
+                    }
+                ],
+                "anal_score_avg": 50.29783
+            }
+        ],
+        "member": {
+            "id": 19,
+            "phone_number": "1234",
+            "name": "test",
+            "height": 180.0,
+            "weight": 72.0,
+            "memo": "testest",
+            "created_at": "2024-01-11T15:10:40",
+            "modified_at": "2024-04-17T15:34:08"
+        }
+    }
+}
