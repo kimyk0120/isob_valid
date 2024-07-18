@@ -5,7 +5,6 @@ import json
 
 
 def start(image_path, image_number, json_path, output_path):
-
     print("====================================")
     print("Image path: ", image_path)
     print("Image number: ", image_number)
@@ -16,6 +15,9 @@ def start(image_path, image_number, json_path, output_path):
     # read image
     image = cv2.imread(image_path)
 
+    # rotate image 90 degree
+    image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
     # read json file from json path
     with open(json_path) as f:
         data = f.read()
@@ -23,6 +25,9 @@ def start(image_path, image_number, json_path, output_path):
         keypoints_data = json_data[image_number]
         keypoints = keypoints_data['keyPoints']
 
+    keypoints_cnt = 0
+
+    # draw key points on image
     for i in range(0, len(keypoints), 4):
         x = float(keypoints[i])
         y = float(keypoints[i + 1])
@@ -32,13 +37,21 @@ def start(image_path, image_number, json_path, output_path):
         x = x * image.shape[1]
         y = y * image.shape[0]
 
-        print("X: ", x)
-        print("Y: ", y)
-        print("Class: ", cls)
+        print("X: ", x, end=" / ")
+        print("Y: ", y, end=" / ")
+        print("Class: ", cls, end=" / ")
         print("Confidence: ", conf)
+
+        keypoints_cnt += 1
 
         # draw circle on image
         cv2.circle(image, (int(x), int(y)), radius=7, color=(0, 0, 255), thickness=-1)
+
+    print("\nKey points count: ", keypoints_cnt)
+
+    # TODO draw lines between key points
+    
+
 
 
     cv2.imwrite(output_path + 'modified_image.jpg', image)
