@@ -1,18 +1,16 @@
 import sys
 import cv2
-import matplotlib.pyplot as plt
 import json
 import validator as v
 
 
 def start(image_path, image_number, json_path, output_path):
-
-    print("====================================")
+    print("========================================"*2)
     print("Image path: ", image_path)
     print("Image number: ", image_number)
     print("Json path: ", json_path)
     print("Output path: ", output_path)
-    print("====================================")
+    print("========================================"*2)
 
     # read image
     image = cv2.imread(image_path)
@@ -27,30 +25,21 @@ def start(image_path, image_number, json_path, output_path):
         keypoints_data = json_data[image_number]
         keypoints = keypoints_data['keyPoints']
 
-
-    # extract x,y
-    validator = v.Validator(image=image, keypoints=keypoints)
-
-    # draw key points and lines on image
-    validator.draw_points()
-
-    cv2.imwrite(output_path + 'modified_image.jpg', image)
+    # validation process
+    #  - draw key points and lines on image, calculate degrees and save image
+    v.Validator(image=image, keypoints=keypoints, output_path=output_path).valid()
 
 
 if __name__ == '__main__':
     # get command line arguments
+    # - image path, image number (front 0, left 1, right 2, back 3), json path, output path
     args = sys.argv
-
-    # image path
-    image_path = "./data/35/image1.jpg"
-
-    # image number (front 0, left 1, right 2, back 3)
-    image_number = int(image_path.split('/')[-1].split('.')[0][-1])
-
-    # json path
-    json_path = 'data/35/key_points.json'
-
-    # output path
-    output_path = './output/'
+    if len(args) >= 4:
+        image_path, image_number, json_path, output_path = args[1], int(args[2]), args[3], args[4]  # argv[0] is main.py
+    else:
+        image_path = "./data/35/image1.jpg"
+        image_number = int(image_path.split('/')[-1].split('.')[0][-1])
+        json_path = 'data/35/key_points.json'
+        output_path = './output/'
 
     start(image_path, image_number, json_path, output_path)

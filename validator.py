@@ -1,13 +1,35 @@
 import cv2
 
+'''
+       pose landmark index
+       0 PoseLandmark.NOSE,
+       1 PoseLandmark.LEFT_EYE,
+       2 PoseLandmark.RIGHT_EYE,
+       3 PoseLandmark.LEFT_EAR,
+       4 PoseLandmark.RIGHT_EAR,
+       5 PoseLandmark.LEFT_SHOULDER,
+       6 PoseLandmark.RIGHT_SHOULDER,
+       7 PoseLandmark.LEFT_ELBOW,
+       8 PoseLandmark.RIGHT_ELBOW,
+       9 PoseLandmark.LEFT_WRIST,
+       10 PoseLandmark.RIGHT_WRIST,
+       11 PoseLandmark.LEFT_HIP,
+       12 PoseLandmark.RIGHT_HIP,
+       13 PoseLandmark.LEFT_KNEE,
+       14 PoseLandmark.RIGHT_KNEE,
+       15 PoseLandmark.LEFT_ANKLE,
+       16 PoseLandmark.RIGHT_ANKLE
+   '''
+
 
 class Validator:
 
-    def __init__(self, keypoints=None, image=None):
+    def __init__(self, keypoints=None, image=None, output_path=None):
         self.xy_list = []
         self.keypoints = keypoints
         self.keypoints_cnt = 0
         self.image = image
+        self.output_path = output_path
         self.set_xy(degug=True)
 
     def set_xy(self, degug=False):
@@ -24,44 +46,32 @@ class Validator:
             self.xy_list.append([x, y])
 
             if degug:
-                print(int(i/4), "X: ", x, end=" / ")
+                print(int(i / 4), "X: ", x, end=" / ")
                 print("Y: ", y, end=" / ")
                 print("Class: ", cls, end=" / ")
                 print("Confidence: ", conf)
 
             self.keypoints_cnt += 1
 
-        print("\nTotal Key-points count: ", self.keypoints_cnt)
+        print("Total Key-points count: ", self.keypoints_cnt)
 
-    def draw_points(self):
+    def valid(self):
 
+        # draw lines
         self.draw_hlines()
 
+        # draw dots
         for xy in self.xy_list:
             x = xy[0]
             y = xy[1]
             cv2.circle(self.image, (int(x), int(y)), radius=5, color=(0, 0, 255), thickness=-1)
 
-    '''
-        pose landmark index
-        0 PoseLandmark.NOSE,
-        1 PoseLandmark.LEFT_EYE,
-        2 PoseLandmark.RIGHT_EYE,
-        3 PoseLandmark.LEFT_EAR,
-        4 PoseLandmark.RIGHT_EAR,
-        5 PoseLandmark.LEFT_SHOULDER,
-        6 PoseLandmark.RIGHT_SHOULDER,
-        7 PoseLandmark.LEFT_ELBOW,
-        8 PoseLandmark.RIGHT_ELBOW,
-        9 PoseLandmark.LEFT_WRIST,
-        10 PoseLandmark.RIGHT_WRIST,
-        11 PoseLandmark.LEFT_HIP,
-        12 PoseLandmark.RIGHT_HIP,
-        13 PoseLandmark.LEFT_KNEE,
-        14 PoseLandmark.RIGHT_KNEE,
-        15 PoseLandmark.LEFT_ANKLE,
-        16 PoseLandmark.RIGHT_ANKLE
-    '''
+        # calculate degrees
+        self.calculate_degrees()
+
+        # save image
+        cv2.imwrite(self.output_path + 'modified_image.jpg', self.image)
+        print("Output image saved successfully!")
 
     def draw_hlines(self):
 
@@ -99,3 +109,15 @@ class Validator:
         cv2.line(self.image, (int(lknee_x), int(lknee_y)), (int(lankle_x), int(lankle_y)), (0, 255, 0), 3)
         cv2.line(self.image, (int(rknee_x), int(rknee_y)), (int(rankle_x), int(rankle_y)), (0, 255, 0), 3)
 
+    # TODO
+    def calculate_degrees(self):
+        # turtleneck_angle
+
+
+        # shoulder_left_angle
+        # shoulder_right_angle
+        # pelvis_left_angle
+        # pelvis_right_angle
+        # ox_left_leg_angle
+        # ox_right_leg_angle
+        pass
