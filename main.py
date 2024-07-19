@@ -2,9 +2,11 @@ import sys
 import cv2
 import matplotlib.pyplot as plt
 import json
+import drawing
 
 
 def start(image_path, image_number, json_path, output_path):
+
     print("====================================")
     print("Image path: ", image_path)
     print("Image number: ", image_number)
@@ -25,33 +27,10 @@ def start(image_path, image_number, json_path, output_path):
         keypoints_data = json_data[image_number]
         keypoints = keypoints_data['keyPoints']
 
-    keypoints_cnt = 0
-
     # draw key points on image
-    for i in range(0, len(keypoints), 4):
-        x = float(keypoints[i])
-        y = float(keypoints[i + 1])
-        cls = int(keypoints[i + 2])
-        conf = keypoints[i + 3]
-
-        x = x * image.shape[1]
-        y = y * image.shape[0]
-
-        print("X: ", x, end=" / ")
-        print("Y: ", y, end=" / ")
-        print("Class: ", cls, end=" / ")
-        print("Confidence: ", conf)
-
-        keypoints_cnt += 1
-
-        # draw circle on image
-        cv2.circle(image, (int(x), int(y)), radius=7, color=(0, 0, 255), thickness=-1)
-
-    print("\nKey points count: ", keypoints_cnt)
+    drawing.draw_points(image, keypoints, degug=True)
 
     # TODO draw lines between key points
-    
-
 
 
     cv2.imwrite(output_path + 'modified_image.jpg', image)
