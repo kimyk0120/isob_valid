@@ -35,7 +35,7 @@ def start(image_path, image_number, json_path, output_path):
     validator.draw_points()
 
     # TODO draw lines between key points
-    # validator.draw_lines_dgree(image, keypoints, degug=True)
+    validator.draw_hlines()
 
     cv2.imwrite(output_path + 'modified_image.jpg', image)
 

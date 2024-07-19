@@ -60,7 +60,7 @@ class Validator:
         16 PoseLandmark.RIGHT_ANKLE
     '''
 
-    def draw_lines_dgree(self):
+    def draw_hlines(self):
         for xy in self.xy_list:
             x = xy[0]
             y = xy[1]
