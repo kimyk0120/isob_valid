@@ -2,7 +2,7 @@ import sys
 import cv2
 import matplotlib.pyplot as plt
 import json
-import drawing
+import validator as v
 
 
 def start(image_path, image_number, json_path, output_path):
@@ -27,11 +27,15 @@ def start(image_path, image_number, json_path, output_path):
         keypoints_data = json_data[image_number]
         keypoints = keypoints_data['keyPoints']
 
+
+    # extract x,y
+    validator = v.Validator(image=image, keypoints=keypoints)
+
     # draw key points on image
-    drawing.draw_points(image, keypoints, degug=True)
+    validator.draw_points()
 
     # TODO draw lines between key points
-
+    # validator.draw_lines_dgree(image, keypoints, degug=True)
 
     cv2.imwrite(output_path + 'modified_image.jpg', image)
 
