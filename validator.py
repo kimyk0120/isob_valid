@@ -69,7 +69,7 @@ class Validator:
             cv2.circle(self.image, (int(x), int(y)), radius=5, color=(0, 0, 255), thickness=-1)
 
         # calculate degrees
-        self.calculate_degrees()
+        self.calculate_degrees(debug=True)
 
         # save image
         cv2.imwrite(self.output_path + 'output_image.jpg', self.image)
@@ -111,8 +111,7 @@ class Validator:
         cv2.line(self.image, (int(lknee_x), int(lknee_y)), (int(lankle_x), int(lankle_y)), (0, 255, 0), 3)
         cv2.line(self.image, (int(rknee_x), int(rknee_y)), (int(rankle_x), int(rankle_y)), (0, 255, 0), 3)
 
-    # TODO
-    def calculate_degrees(self):
+    def calculate_degrees(self, debug=False):
 
         kp_analyzer = kp.BodyShapeAnalyzer(self.json_data)
 
@@ -121,14 +120,15 @@ class Validator:
         l_pelvis_anal_angle, r_pelvis_anal_angle = kp_analyzer.l_pelvis_anal_angle, kp_analyzer.r_pelvis_anal_angle
         l_ox_leg_anal_angle, r_ox_leg_anal_angle = kp_analyzer.l_ox_leg_anal_angle, kp_analyzer.r_ox_leg_anal_angle
 
-        print("========================================"*2)
-        print("Turtle Neck Angle: ", turtle_neck_anal_angle)
-        print("Shoulder Balance Angle: ", shoulder_balance_anal_angle)
-        print("Left Pelvis Angle: ", l_pelvis_anal_angle)
-        print("Right Pelvis Angle: ", r_pelvis_anal_angle)
-        print("Left Ox Leg Angle: ", l_ox_leg_anal_angle)
-        print("Right Ox Leg Angle: ", r_ox_leg_anal_angle)
-        print("========================================"*2)
+        if debug:
+            print("========================================"*2)
+            print("Turtle Neck Angle: ", turtle_neck_anal_angle)
+            print("Shoulder Balance Angle: ", shoulder_balance_anal_angle)
+            print("Left Pelvis Angle: ", l_pelvis_anal_angle)
+            print("Right Pelvis Angle: ", r_pelvis_anal_angle)
+            print("Left Ox Leg Angle: ", l_ox_leg_anal_angle)
+            print("Right Ox Leg Angle: ", r_ox_leg_anal_angle)
+            print("========================================"*2)
 
         # draw on image
         start_y = 30
