@@ -129,3 +129,13 @@ class Validator:
         print("Left Ox Leg Angle: ", l_ox_leg_anal_angle)
         print("Right Ox Leg Angle: ", r_ox_leg_anal_angle)
         print("========================================"*2)
+
+        # draw on image
+        start_y = 30
+        cv2.putText(self.image, str("Turtle Neck Angle: " + "{:.2f}".format(turtle_neck_anal_angle)), (10, start_y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(self.image, str("Shoulder Balance Angle: " + "{:.2f}".format(shoulder_balance_anal_angle)), (10, start_y*2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(self.image, str("Left Pelvis Angle: " + "{:.2f}".format(l_pelvis_anal_angle)), (10, start_y*3), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(self.image, str("Right Pelvis Angle: " + "{:.2f}".format(r_pelvis_anal_angle)), (10, start_y*4), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(self.image, str("Left Ox Leg Angle: " + "{:.2f}".format(l_ox_leg_anal_angle)), (10, start_y*5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(self.image, str("Right Ox Leg Angle: " + "{:.2f}".format(r_ox_leg_anal_angle)), (10, start_y*6), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
