@@ -1,7 +1,5 @@
 # isob_valid
 
----
-
 ## Description
 
 This is a simple tool to validate Humanpose Estimatin data for ISOP app. 
