@@ -72,7 +72,7 @@ class Validator:
         self.calculate_degrees()
 
         # save image
-        cv2.imwrite(self.output_path + 'modified_image.jpg', self.image)
+        cv2.imwrite(self.output_path + 'output_image.jpg', self.image)
         # print("Output image saved successfully!")
 
     def draw_hlines(self):
