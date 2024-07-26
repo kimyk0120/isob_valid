@@ -27,7 +27,7 @@ def start(image_path, image_number, json_path, output_path):
 
     # validation process
     #  - draw key points and lines on image, calculate degrees and save image
-    v.Validator(image=image, keypoints=keypoints, output_path=output_path).valid()
+    v.Validator(image=image, keypoints=keypoints, output_path=output_path, json_data=json_data).valid()
 
 
 if __name__ == '__main__':

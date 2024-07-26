@@ -1,4 +1,5 @@
 import cv2
+import kp_analyzer as kp
 
 '''
        pose landmark index
@@ -24,9 +25,10 @@ import cv2
 
 class Validator:
 
-    def __init__(self, keypoints=None, image=None, output_path=None):
+    def __init__(self, keypoints=None, image=None, output_path=None, json_data=None):
         self.xy_list = []
         self.keypoints = keypoints
+        self.json_data = json_data
         self.keypoints_cnt = 0
         self.image = image
         self.output_path = output_path
@@ -71,7 +73,7 @@ class Validator:
 
         # save image
         cv2.imwrite(self.output_path + 'modified_image.jpg', self.image)
-        print("Output image saved successfully!")
+        # print("Output image saved successfully!")
 
     def draw_hlines(self):
 
@@ -111,13 +113,19 @@ class Validator:
 
     # TODO
     def calculate_degrees(self):
-        # turtleneck_angle
 
+        kp_analyzer = kp.BodyShapeAnalyzer(self.json_data)
 
-        # shoulder_left_angle
-        # shoulder_right_angle
-        # pelvis_left_angle
-        # pelvis_right_angle
-        # ox_left_leg_angle
-        # ox_right_leg_angle
-        pass
+        turtle_neck_anal_angle = kp_analyzer.turtle_neck_anal_angle
+        shoulder_balance_anal_angle = kp_analyzer.shoulder_balance_anal_angle
+        l_pelvis_anal_angle, r_pelvis_anal_angle = kp_analyzer.l_pelvis_anal_angle, kp_analyzer.r_pelvis_anal_angle
+        l_ox_leg_anal_angle, r_ox_leg_anal_angle = kp_analyzer.l_ox_leg_anal_angle, kp_analyzer.r_ox_leg_anal_angle
+
+        print("========================================"*2)
+        print("Turtle Neck Angle: ", turtle_neck_anal_angle)
+        print("Shoulder Balance Angle: ", shoulder_balance_anal_angle)
+        print("Left Pelvis Angle: ", l_pelvis_anal_angle)
+        print("Right Pelvis Angle: ", r_pelvis_anal_angle)
+        print("Left Ox Leg Angle: ", l_ox_leg_anal_angle)
+        print("Right Ox Leg Angle: ", r_ox_leg_anal_angle)
+        print("========================================"*2)
